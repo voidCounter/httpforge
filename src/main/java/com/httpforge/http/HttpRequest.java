@@ -1,4 +1,4 @@
-package org.voidcounter;
+package com.httpforge.http;
 
 import java.util.HashMap;
 import java.util.Map;
