@@ -88,7 +88,7 @@ public class HttpParser {
                     int totalRead = 0;
                     while (totalRead < contentLength) {
                         // IMPORTANT: read may return less than requested, so we loop until we read enough
-                        // thh source of SLOWLORIS attacks
+                        // the source of SLOWLORIS attacks
                         // it happens when the client sends data very slowly, so we must keep reading until we get all the expected bytes
                         int read = reader.read(bodyChars, totalRead, contentLength - totalRead);
                         if (read == -1) {
