@@ -1,0 +1,79 @@
+
+Summary:
+  Total:	208.9025 secs
+  Slowest:	18.7050 secs
+  Fastest:	0.0204 secs
+  Average:	1.0838 secs
+  Requests/sec:	47.8692
+  
+  Total data:	136486 bytes
+  Size/request:	14 bytes
+
+Response time histogram:
+  0.020 [1]	|
+  1.889 [9684]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  3.757 [10]	|
+  5.626 [3]	|
+  7.494 [4]	|
+  9.363 [3]	|
+  11.231 [4]	|
+  13.100 [9]	|
+  14.968 [0]	|
+  16.837 [13]	|
+  18.705 [18]	|
+
+
+Latency distribution:
+  10% in 0.9148 secs
+  25% in 0.9758 secs
+  50% in 1.0556 secs
+  75% in 1.0567 secs
+  90% in 1.0572 secs
+  95% in 1.0575 secs
+  99% in 1.0582 secs
+
+Details (average, fastest, slowest):
+  DNS+dialup:	0.0292 secs, 0.0204 secs, 18.7050 secs
+  DNS-lookup:	0.0001 secs, 0.0000 secs, 0.0012 secs
+  req write:	0.0000 secs, 0.0000 secs, 0.0006 secs
+  resp wait:	1.0545 secs, 0.0202 secs, 11.5388 secs
+  resp read:	0.0001 secs, 0.0000 secs, 0.0004 secs
+
+Status code distribution:
+  [200]	9749 responses
+
+Error distribution:
+  [144]	Get "http://localhost:8080/hello": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+  [76]	Get "http://localhost:8080/hello": dial tcp 127.0.0.1:8080: i/o timeout (Client.Timeout exceeded while awaiting headers)
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:37026->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:37036->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:37044->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:37066->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:37078->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:37082->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:37100->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:37126->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:37150->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:37158->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:38864->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:38866->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:38894->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:38900->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:38906->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:38934->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:38940->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:38954->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:38960->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:38998->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:39012->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:39022->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:39034->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:39038->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:39040->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:39056->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:39098->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:39108->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:39152->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:39172->127.0.0.1:8080: read: connection reset by peer
+  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:39200->127.0.0.1:8080: read: connection reset by peer
+
