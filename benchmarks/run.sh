@@ -5,28 +5,28 @@
 # Usage: ./run.sh [server1,server2,...]
 #   Examples:
 #     ./run.sh              # Test all servers
-#     ./run.sh nio          # Test only NIO
-#     ./run.sh nio,pool     # Test NIO and Pool
-#     ./run.sh single,thread,pool,nio  # Test all (explicit)
+#     ./run.sh pool         # Test only Pool
+#     ./run.sh single,thread # Test single and thread
+#     ./run.sh single,thread,pool  # Test all (explicit)
 
 set -e
 
 if [ $# -eq 0 ]; then
-    SERVERS=("single" "thread" "pool" "nio")
+    SERVERS=("single" "thread" "pool")
 else
     IFS=',' read -ra SERVERS <<< "$1"
 
-    VALID_SERVERS=("single" "thread" "pool" "nio")
+    VALID_SERVERS=("single" "thread" "pool")
     for server in "${SERVERS[@]}"; do
         if [[ ! " ${VALID_SERVERS[@]} " =~ " ${server} " ]]; then
             echo -e "${RED}✗ Invalid server name: '$server'${NC}"
             echo ""
-            echo "Valid servers: single, thread, pool, nio"
+            echo "Valid servers: single, thread, pool"
             echo ""
             echo "Usage:"
             echo "  ./run.sh              # Test all servers"
-            echo "  ./run.sh nio          # Test only NIO"
-            echo "  ./run.sh nio,pool     # Test NIO and Pool"
+            echo "  ./run.sh pool         # Test only Pool"
+            echo "  ./run.sh single,thread # Test single and thread"
             echo ""
             exit 1
         fi

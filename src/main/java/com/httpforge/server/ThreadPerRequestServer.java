@@ -25,6 +25,7 @@ public class ThreadPerRequestServer implements ServerStrategy {
         while (running) {
             try {
                 Socket clientSocket = serverSocket.accept();
+                // we spawn a new thread for each incoming connection
                 new Thread(() -> handleRequest(clientSocket)).start();
             } catch (IOException e) {
                 if (running) {

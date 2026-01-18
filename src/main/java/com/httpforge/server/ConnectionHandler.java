@@ -16,6 +16,7 @@ import java.util.Map;
  * Implements persistent connections per HTTP/1.1 specification.
  */
 public class ConnectionHandler {
+    // this is the time we wait for the next request on a keep-alive connection
     private static final int IDLE_TIMEOUT_MS = 5000; // 5 seconds
 
     private final Router router;
@@ -30,6 +31,7 @@ public class ConnectionHandler {
      * Parse → Route → Respond → Check Keep-Alive → Repeat or Close
      */
     public void handle() {
+        // it's a singleton, so get the instance
         Metrics metrics = Metrics.getInstance();
 
         try {
@@ -64,11 +66,11 @@ public class ConnectionHandler {
                     out.write(response.toBytes());
                     out.flush();
 
-                    // Record successful request completion
+                    // record successful request completion
                     long duration = System.currentTimeMillis() - startTime;
                     metrics.recordRequestEnd(duration);
 
-                    // Log request details: method, path, status code, duration
+                    // log request details: method, path, status code, duration
                     logRequest(request, response, duration);
 
                 } catch (java.net.SocketTimeoutException e) {
@@ -77,12 +79,10 @@ public class ConnectionHandler {
                     System.out.println("Connection idle timeout, closing");
                     keepAlive = false;
                 } catch (HttpParser.HttpParseException e) {
-                    // parse error - don't record metrics, this isn't a valid request
                     System.err.println("Parse error: " + e.getMessage());
                     keepAlive = false;
                 } catch (IOException e) {
                     // Connection closed by client or other I/O error
-                    // Don't record metrics - this is a connection failure
                     keepAlive = false;
                 }
             }

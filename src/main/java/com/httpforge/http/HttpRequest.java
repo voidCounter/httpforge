@@ -3,6 +3,10 @@ package com.httpforge.http;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * every HTTP request received by the server is represented by this class.
+ * every request has a method (GET, POST, etc), a path (/index.html), headers, and an optional body.
+ */
 public class HttpRequest {
     private final String method;
     private final String path;
@@ -25,10 +29,13 @@ public class HttpRequest {
     }
 
     public Map<String, String> getHeaders() {
+        // return a soft copy to prevent external modification
         return new HashMap<>(headers);
     }
 
     public String getHeader(String name) {
+        // we don't want to lose how the headers were originally cased
+        // that's why we iterate instead of just doing headers.get(name)
         for (Map.Entry<String, String> entry : headers.entrySet()) {
             if (entry.getKey().equalsIgnoreCase(name)) {
                 return entry.getValue();

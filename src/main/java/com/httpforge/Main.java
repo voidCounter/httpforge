@@ -1,4 +1,4 @@
-package com;
+package com.httpforge;
 
 import com.httpforge.http.HttpResponse;
 import com.httpforge.metrics.Metrics;
@@ -11,15 +11,15 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        // Create router and register some routes
         Router router = new Router();
 
+        // routes
         router.addRoute("GET", "/", request ->
             HttpResponse.ok("Welcome to HTTPForge!\n")
         );
 
         router.addRoute("GET", "/hello", request -> {
-            try { Thread.sleep(20); } catch (InterruptedException e) {} // Simulate a DB call
+            try { Thread.sleep(20); } catch (InterruptedException ignored) {} // Simulate a DB call
             return HttpResponse.ok("Hello, World!\n");
         });
 
@@ -35,7 +35,6 @@ public class Main {
             return HttpResponse.ok(body);
         });
 
-        // Metrics endpoint - returns JSON
         router.addRoute("GET", "/metrics", request -> {
             Metrics metrics = Metrics.getInstance();
 
@@ -62,7 +61,7 @@ public class Main {
 
         int port = 8080;
 
-        // Choose server type from command line or default to NIO
+        // Choose server type from command line or default to thread
         String serverType = args.length > 0 ? args[0].toLowerCase() : "thread";
         ServerStrategy server;
 

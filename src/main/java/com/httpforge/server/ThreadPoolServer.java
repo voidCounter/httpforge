@@ -25,7 +25,9 @@ public class ThreadPoolServer implements ServerStrategy {
         running = true;
         serverSocket = new ServerSocket(port);
 
+        // here we're setting pool size to double the number of available processors
         int poolSize = Runtime.getRuntime().availableProcessors() * 2;
+        // queue size determines how many requests can wait when all threads are busy
         int queueSize = 100;
 
         executorService = new ThreadPoolExecutor(
@@ -34,7 +36,7 @@ public class ThreadPoolServer implements ServerStrategy {
                 60L,
                 TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(queueSize),
-                new ThreadPoolExecutor.CallerRunsPolicy()
+                new ThreadPoolExecutor.AbortPolicy() // reject when overloaded
         );
 
         System.out.println(">> Thread pool server started on port " + port + " (pool=" + poolSize + ", queue=" + queueSize + ")");
@@ -43,8 +45,10 @@ public class ThreadPoolServer implements ServerStrategy {
             try {
                 Socket clientSocket = serverSocket.accept();
                 try {
+                    // submit the request handling to the thread pool
                     executorService.submit(() -> handleRequest(clientSocket));
                 } catch (RejectedExecutionException e) {
+                    // when the pool is overloaded, we reject the request with 503
                     handleOverload(clientSocket);
                 }
             } catch (IOException e) {
@@ -60,6 +64,7 @@ public class ThreadPoolServer implements ServerStrategy {
     }
 
     private void handleOverload(Socket socket) {
+        // using try-with-resources to ensure socket is closed after sending response
         try (socket;
              OutputStream out = socket.getOutputStream()) {
 
@@ -79,7 +84,7 @@ public class ThreadPoolServer implements ServerStrategy {
         executorService.shutdown();
         try {
             if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
-                executorService.shutdownNow();
+                executorService.shutdown();
             }
         } catch (InterruptedException e) {
             executorService.shutdownNow();

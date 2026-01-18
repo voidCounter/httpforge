@@ -4,6 +4,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * every HTTP response sent by the server is represented by this class.
+ * every response has a status code (200, 404, etc), reason phrase (OK, Not Found, etc), headers, and an optional body.
+ * for example, a typical HTTP response might look like this:
+ */
 public class HttpResponse {
     private final int statusCode;
     private final String reasonPhrase;
@@ -26,6 +31,7 @@ public class HttpResponse {
     }
 
     public Map<String, String> getHeaders() {
+        // return a soft copy to prevent external modification
         return new HashMap<>(headers);
     }
 
@@ -50,7 +56,7 @@ public class HttpResponse {
                 .append(statusCode)
                 .append(" ")
                 .append(reasonPhrase)
-                .append("\r\n");
+                .append("\r\n"); // \r\n means new line in HTTP or CRLF (Carriage Return Line Feed)
         
         // headers
         for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -63,9 +69,9 @@ public class HttpResponse {
         // empty line separating headers from body
         response.append("\r\n");
         
-        // body
         response.append(body);
-        
+
+        // tcp/ip works with bytes, not strings
         return response.toString().getBytes(StandardCharsets.UTF_8);
     }
 
@@ -75,6 +81,16 @@ public class HttpResponse {
                 statusCode, reasonPhrase, headers.size(), body.length());
     }
 
+    /**
+     * builder pattern for constructing HttpResponse instances.
+     * allows for flexible and readable response creation.
+     * example usage:
+     * HttpResponse response = HttpResponse.builder()
+     *     .status(200, "OK")
+     *     .header("Content-Type", "text/plain")
+     *     .body("Hello, world!")
+     *     .build();
+     */
     public static class Builder {
         private int statusCode = 200;
         private String reasonPhrase = "OK";
@@ -114,6 +130,7 @@ public class HttpResponse {
         return new Builder();
     }
 
+    // some common responses for convenience
     public static HttpResponse ok(String body) {
         return builder()
                 .status(200, "OK")

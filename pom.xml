@@ -37,7 +37,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.Main</mainClass>
+                            <mainClass>com.httpforge.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

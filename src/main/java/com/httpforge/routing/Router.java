@@ -8,10 +8,11 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class Router {
+    // using Function functional interface to represent route handlers
     private final Map<String, Function<HttpRequest, HttpResponse>> routes = new HashMap<>();
 
     /**
-     * Register a route handler for a specific HTTP method and path.
+     * register a route handler for a specific HTTP method and path.
      *
      * @param method HTTP method (GET, POST, etc.)
      * @param path   Request path

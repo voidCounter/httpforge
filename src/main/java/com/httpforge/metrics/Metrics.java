@@ -17,12 +17,10 @@ public class Metrics {
     private final AtomicInteger activeConnections = new AtomicInteger(0);
     private final List<Long> requestDurations = Collections.synchronizedList(new ArrayList<>());
 
-    // Keep last N request durations for percentile calculation
+    // keep last N request durations for percentile calculation
     private static final int MAX_DURATION_SAMPLES = 10000;
 
-    private Metrics() {
-        // Private constructor for singleton
-    }
+    private Metrics() {}
 
     public static Metrics getInstance() {
         return INSTANCE;
@@ -43,7 +41,7 @@ public class Metrics {
     public void recordRequestEnd(long durationMs) {
         activeConnections.decrementAndGet();
 
-        // Keep a limited history to avoid memory issues
+        // keep a limited history to avoid memory issues
         synchronized (requestDurations) {
             if (requestDurations.size() >= MAX_DURATION_SAMPLES) {
                 requestDurations.remove(0);

@@ -28,17 +28,17 @@ cd benchmarks
 
 ### Test Specific Servers
 ```bash
-# Test only NIO server
-./run.sh nio
+# Test only Thread Pool server
+./run.sh pool
 
-# Test NIO and Thread Pool
-./run.sh nio,pool
+# Test single and thread
+./run.sh single,thread
 
 # Test multiple servers (comma-separated, no spaces)
-./run.sh single,thread,pool,nio
+./run.sh single,thread,pool
 ```
 
-**Available servers**: `single`, `thread`, `pool`, `nio`
+**Available servers**: `single`, `thread`, `pool`
 
 This will:
 1. Build the project (`mvn clean package`)
@@ -49,7 +49,7 @@ This will:
 
 ## Reading Results
 
-Each test creates a file like: `benchmark-results/nio_c100.txt`
+Each test creates a file like: `benchmark-results/pool_c100.txt`
 
 Key metrics:
 - **Requests/sec** - Throughput (higher is better)
@@ -58,9 +58,9 @@ Key metrics:
 
 Example output:
 ```
-Testing: nio server
+Testing: pool server
   Running: 10000 requests, 100 concurrent
-    → RPS: 12543.32, Avg: 0.0079, p50: 0.0072, p95: 0.0145, p99: 0.0234
+    → RPS: 8543.32, Avg: 0.0117, p50: 0.0102, p95: 0.0245, p99: 0.0334
 ```
 
 ## Understanding the Metrics
@@ -90,7 +90,6 @@ Expected performance characteristics:
 | Single     | Low        | Low     | Minimal | Learning/Simple |
 | Thread     | Medium     | Medium  | High    | Traditional |
 | Pool       | High       | Low     | Medium  | Production |
-| NIO        | Very High  | Very Low| Low     | High Performance |
 
 ## Troubleshooting
 
@@ -110,6 +109,6 @@ export PATH=$PATH:$(go env GOPATH)/bin
 Check logs and ensure JAR is built:
 ```bash
 mvn clean package
-java -jar target/httpforge.jar nio
+java -jar target/httpforge.jar pool
 ```
 

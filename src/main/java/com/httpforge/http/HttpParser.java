@@ -8,18 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple HTTP request parser that reads from an InputStream and constructs an HttpRequest object.
- * It supports parsing the request line, headers, and body (if present).
- * an example of a valid HTTP request:
- * GET /index.html HTTP/1.1
- * Host: www.example.com
- * User-Agent: Mozilla/5.0
- * Content-Length: 13
- *
- * Hello, world!
- *
- */
 public class HttpParser {
 
     /**

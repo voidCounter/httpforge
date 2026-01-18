@@ -9,7 +9,11 @@ import java.net.Socket;
 public class SingleThreadServer implements ServerStrategy {
     private final int port;
     private final Router router;
+    // running flag is volatile, because it may be accessed by multiple threads
+    // volatile ensures visibility of updates across threads. so changes made in stop() are seen by the start() loop
     private volatile boolean running = false;
+    // ServerSocket listens on a port and accepts new connections
+    // it's different from regular Socket, which represents a single connection
     private ServerSocket serverSocket;
 
     public SingleThreadServer(int port, Router router) {
@@ -24,6 +28,10 @@ public class SingleThreadServer implements ServerStrategy {
 
         while (running) {
             try {
+                // internally, a file descriptor is binded to the port
+                // and it has a backlog queue of incoming connections
+                // when a client connects(SYN -> SYC+ACK -> ACK), accept() returns a new Socket for that connection
+                // but the serverSocket continues to listen for new connections
                 Socket clientSocket = serverSocket.accept();
                 handleRequest(clientSocket);
             } catch (IOException e) {
