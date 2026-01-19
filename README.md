@@ -1,183 +1,81 @@
 # HTTPForge
 
-A lightweight HTTP server implementation in pure Java, built from scratch with zero external dependencies. This project explores different server concurrency models and their performance characteristics.
-
-## What is this?
-
-HTTPForge is a learning project that implements a working HTTP/1.1 server using only the Java standard library. It includes three different concurrency strategies so you can compare how they handle load and what trade-offs each approach makes.
-
-If you've ever wondered how web servers like Tomcat or Jetty work under the hood, this is a good place to start.
+A simple HTTP/1.1 server implementation in pure Java with no external dependencies. Includes three different concurrency models to compare performance characteristics.
 
 ## Features
 
-**Three Server Strategies:**
-- Single-Threaded - handles one request at a time (baseline)
-- Thread-per-Request - spawns a new thread for each connection
-- Thread Pool - uses a fixed pool of worker threads with a request queue
-- planned: NIO-based server for async handling
-
-**HTTP/1.1 Support:**
-- GET and POST methods
-- Header parsing and handling
-- Keep-alive connections
-- Request body parsing
-
-**Routing System:**
-- Simple path-based routing
-- Lambda-based request handlers
-- Method-specific routes (GET, POST, etc.)
-
-**Performance Metrics:**
-- Request count and active connections
-- Latency tracking (min, max, avg, percentiles)
-- Real-time metrics endpoint at `/metrics`
-
-**Built-in Benchmarking:**
-- Uses `hey` benchmarking tool
-- Automated performance tests
-- Comparative analysis across strategies
+- **Three server strategies**: Single-threaded, thread-per-request, and thread pool
+- **HTTP/1.1 basics**: GET/POST methods, headers, keep-alive, request bodies
+- **Simple routing**: Path-based routing with lambda handlers
+- **Metrics**: Request counts, latency tracking, `/metrics` endpoint
+- **Benchmarking**: Built-in performance testing with `hey`
 
 ## Quick Start
 
-### Prerequisites
-- Java 11 or higher
-- Maven 3.6+
-- `hey` (optional, for benchmarking)
-
-### Build and Run
-
 ```bash
-# Clone the repository
-git clone <your-repo-url>
-cd httpforge
-
-# Build the project
+# Build
 mvn clean package
 
-# Run with thread pool server (recommended)
+# Run (choose: single, thread, or pool)
 java -jar target/httpforge-1.0-SNAPSHOT.jar pool
-
-# Or try other strategies
-java -jar target/httpforge-1.0-SNAPSHOT.jar single
-java -jar target/httpforge-1.0-SNAPSHOT.jar thread
 ```
 
-The server will start on `http://localhost:8080`
+Server runs on `http://localhost:8080`
 
-## API Endpoints
+## Endpoints
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/` | GET | Welcome message |
-| `/hello` | GET | Hello world with simulated 20ms delay |
-| `/echo` | GET | Returns request information |
-| `/data` | POST | Echoes back the POST body |
-| `/metrics` | GET | Server performance metrics (JSON) |
-
-### Examples
-
-```bash
-# Test the welcome endpoint
-curl http://localhost:8080/
-
-# Test the hello endpoint
-curl http://localhost:8080/hello
-
-# Test echo endpoint
-curl http://localhost:8080/echo
-
-# Send POST data
-curl -X POST http://localhost:8080/data -d "Hello from client"
-
-# Check server metrics
-curl http://localhost:8080/metrics
-```
+- `GET /` - Welcome message
+- `GET /hello` - Hello world (20ms simulated delay)
+- `GET /echo` - Request info
+- `POST /data` - Echo POST body
+- `GET /metrics` - Performance metrics (JSON)
 
 ## Benchmarking
 
-Compare the performance of different server strategies:
+Install `hey` first:
+```bash
+# macOS
+brew install hey
 
+# Linux
+go install github.com/rakyll/hey@latest
+
+# Or download from: https://github.com/rakyll/hey
+```
+Some benchmarks: 
+
+<img width="1216" height="565" alt="image" src="https://github.com/user-attachments/assets/2728c22e-0ce9-4989-8d43-fc6bcc258f4c" />
+<img width="1237" height="482" alt="image" src="https://github.com/user-attachments/assets/88c06278-0c73-405a-9205-05674b236b2b" />
+<img width="1216" height="495" alt="image" src="https://github.com/user-attachments/assets/2936c562-d014-4d72-aa1b-0e006800571a" />
+<img width="1216" height="478" alt="image" src="https://github.com/user-attachments/assets/b4e5e097-2193-421a-b4d9-4b2acd243efc" />
+
+See more: https://httpforge.vercel.app/
+
+
+Run benchmarks:
 ```bash
 cd benchmarks
-
-# Run benchmarks for all servers
-./run.sh
-
-# Test specific server(s)
-./run.sh pool
-./run.sh single,thread,pool
-
-# View results
-cat benchmark-results/pool_c100.txt
+./run.sh pool  # or: single, thread, or all
+cat benchmark-results/pool_c100.txt  # view results
 ```
 
-See [benchmarks/README.md](benchmarks/README.md) for detailed benchmarking guide.
-
-## Architecture
+## Project Structure
 
 ```
-HTTPForge
-├── http/          - HTTP protocol implementation
-│   ├── HttpParser.java
-│   ├── HttpRequest.java
-│   └── HttpResponse.java
-├── routing/       - Request routing system
-│   ├── Router.java
-│   └── Routes.java
-├── server/        - Server implementations
-│   ├── ServerStrategy.java (interface)
-│   ├── SingleThreadServer.java
-│   ├── ThreadPerRequestServer.java
-│   └── ThreadPoolServer.java
-├── metrics/       - Performance tracking
-│   └── Metrics.java
-└── Main.java      - Application entry point
+http/       - HTTP protocol (parser, request, response)
+routing/    - Router and route definitions
+server/     - Server implementations (single, thread-per-request, pool)
+metrics/    - Performance tracking
 ```
 
-## Learning Outcomes
+## Requirements
 
-By exploring this project, you'll understand:
+- Java 11+
+- Maven 3.6+
+- `hey` (optional, for benchmarks)
 
-- How HTTP protocol parsing works
-- Different concurrency models and their trade-offs
-- Thread management and pooling strategies
-- Performance characteristics under load
-- How to implement a basic web server from scratch
+## Performance Notes
 
-## Development
-
-```bash
-# Run tests
-mvn test
-
-# Compile without running
-mvn compile
-
-# Clean build artifacts
-mvn clean
-```
-
-## Performance Comparison
-
-| Strategy | Best For | Throughput | Memory Usage |
-|----------|----------|------------|--------------|
-| Single-Threaded | Learning, simple apps | Low | Minimal |
-| Thread-per-Request | Moderate traffic | Medium | High |
-| Thread Pool | Production | High | Moderate |
-
-## Contributing
-
-This is an educational project. Feel free to:
-- Experiment with the code
-- Add new features
-- Implement additional server strategies
-- Improve performance
-
-## License
-
-This project is open source and available for educational purposes.
-
----
-
-Built to understand web server internals and concurrency patterns in Java.
-
+- **Single-threaded**: Minimal resources, handles one request at a time
+- **Thread-per-request**: New thread per connection, higher memory usage
+- **Thread pool**: Best for production, fixed threads with request queue
