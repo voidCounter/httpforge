@@ -1,53 +1,48 @@
 
 Summary:
-  Total:	196.2299 secs
-  Slowest:	19.9896 secs
-  Fastest:	0.0204 secs
-  Average:	1.1366 secs
-  Requests/sec:	50.9606
+  Total:	197.4303 secs
+  Slowest:	19.9819 secs
+  Fastest:	0.0224 secs
+  Average:	1.2089 secs
+  Requests/sec:	50.6508
   
-  Total data:	129724 bytes
+  Total data:	130116 bytes
   Size/request:	14 bytes
 
 Response time histogram:
-  0.020 [1]	|
-  2.017 [9130]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  4.014 [45]	|
-  6.011 [5]	|
-  8.008 [2]	|
-  10.005 [1]	|
-  12.002 [32]	|
-  13.999 [22]	|
-  15.996 [0]	|
-  17.993 [0]	|
-  19.990 [28]	|
+  0.022 [1]	|
+  2.018 [9147]	|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  4.014 [30]	|
+  6.010 [0]	|
+  8.006 [2]	|
+  10.002 [0]	|
+  11.998 [38]	|
+  13.994 [16]	|
+  15.990 [0]	|
+  17.986 [0]	|
+  19.982 [60]	|
 
 
 Latency distribution:
-  10% in 0.8330 secs
+  10% in 0.8980 secs
   25% in 1.0554 secs
-  50% in 1.0567 secs
-  75% in 1.0574 secs
-  90% in 1.0579 secs
-  95% in 1.0583 secs
-  99% in 2.9937 secs
+  50% in 1.0607 secs
+  75% in 1.0620 secs
+  90% in 1.0630 secs
+  95% in 1.0635 secs
+  99% in 11.6763 secs
 
 Details (average, fastest, slowest):
-  DNS+dialup:	0.1362 secs, 0.0204 secs, 19.9896 secs
-  DNS-lookup:	0.0001 secs, 0.0000 secs, 0.0025 secs
-  req write:	0.0000 secs, 0.0000 secs, 0.0003 secs
-  resp wait:	1.0003 secs, 0.0201 secs, 1.9471 secs
-  resp read:	0.0001 secs, 0.0000 secs, 0.0004 secs
+  DNS+dialup:	0.1952 secs, 0.0224 secs, 19.9819 secs
+  DNS-lookup:	0.0001 secs, 0.0000 secs, 0.0023 secs
+  req write:	0.0000 secs, 0.0000 secs, 0.0027 secs
+  resp wait:	1.0136 secs, 0.0203 secs, 1.9515 secs
+  resp read:	0.0001 secs, 0.0000 secs, 0.0009 secs
 
 Status code distribution:
-  [200]	9266 responses
+  [200]	9294 responses
 
 Error distribution:
-  [578]	Get "http://localhost:8080/hello": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
-  [151]	Get "http://localhost:8080/hello": dial tcp 127.0.0.1:8080: i/o timeout (Client.Timeout exceeded while awaiting headers)
-  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:36686->127.0.0.1:8080: read: connection reset by peer
-  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:48004->127.0.0.1:8080: read: connection reset by peer
-  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:48128->127.0.0.1:8080: read: connection reset by peer
-  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:48896->127.0.0.1:8080: read: connection reset by peer
-  [1]	Get "http://localhost:8080/hello": read tcp 127.0.0.1:54940->127.0.0.1:8080: read: connection reset by peer
+  [539]	Get "http://localhost:8080/hello": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+  [167]	Get "http://localhost:8080/hello": dial tcp 127.0.0.1:8080: i/o timeout (Client.Timeout exceeded while awaiting headers)
 
