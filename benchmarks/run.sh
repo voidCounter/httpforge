@@ -33,7 +33,7 @@ else
     done
 fi
 
-CONCURRENCY_LEVELS=(1 10 50 100 200 5000)
+CONCURRENCY_LEVELS=(1 10 50 100 200 1000)
 REQUESTS=10000
 PORT=8080
 RESULTS_DIR="benchmark-results"
@@ -124,7 +124,7 @@ run_benchmark() {
     local output_file="${RESULTS_DIR}/${server_type}_c${concurrency}.txt"
 
     echo "  Running: $REQUESTS requests, $concurrency concurrent"
-    hey -n $REQUESTS -c $concurrency -q 1000 http://localhost:$PORT/hello > "$output_file" 2>&1
+    hey -n $REQUESTS -c $concurrency http://localhost:$PORT/hello > "$output_file" 2>&1
 
     # Extract key metrics
     local rps=$(grep "Requests/sec:" "$output_file" | awk '{print $2}')
